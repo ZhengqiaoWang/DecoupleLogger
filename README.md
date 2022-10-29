@@ -8,7 +8,7 @@
 
 > It is highly recommended to look at the [`example/helloworld.cpp`](example/helloworld.cpp) code after reading `README` as it will help you understand using `DecoupleLogger`.
 
-When you first define a class, you can inherit the class from `LoggerBase`, and then use the `callLog` member function within the class to call the log.
+When you define a class, you can inherit the class from `LoggerBase`, and then use the `callLog` member function within the class to call the log.
 
 ```c++
 class Table : public LoggerBase {
@@ -17,7 +17,17 @@ public:
 };
 ```
 
-When you instantiate the `Table` class, you need to call `setLoggerFunc` in advance to set the logging function of the class, otherwise the following prompt will pop up when logging is called:
+When you instantiate the `Table` class, you need to call `setLoggerFunc` to set the logging function for that class.
+
+```c++
+Table tb;
+tb.setLoggerFunc([&](const LogLevel &log_level, const std::string &msg) {
+    // You can reference the log library here or do some custom operations
+    printf("%s\n", msg.c_str());
+  });
+```
+
+Otherwise it will pop up when calling the log.
 
 ```text
 * WARN: LoggerBase class hasn't setLoggerFunc yet!

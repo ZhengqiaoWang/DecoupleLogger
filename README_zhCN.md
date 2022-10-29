@@ -6,7 +6,7 @@
 
 > 强烈建议在阅读完`README`后查看[`example/helloworld.cpp`](example/helloworld.cpp)代码，这样能帮助你理解使用`DecoupleLogger`。
 
-在你第一次定义一个类的时候，你可以将类继承`LoggerBase`，然后在类内使用`callLog`成员函数来调用日志。
+在你定义一个类时，你可以将类继承`LoggerBase`，然后在类内使用`callLog`成员函数来调用日志。
 
 ```c++
 class Table : public LoggerBase {
@@ -15,7 +15,17 @@ public:
 };
 ```
 
-当你实例化`Table`类时，你需要提前调用`setLoggerFunc`来为该类设定日志函数，否则会在调用日志的时候弹出：
+当你实例化`Table`类后，你需要调用`setLoggerFunc`来为该类设定日志函数，
+
+```c++
+Table tb;
+tb.setLoggerFunc([&](const LogLevel &log_level, const std::string &msg) {
+    // 可以在这里引用日志库或者做一些自定义操作
+    printf("%s\n", msg.c_str());
+  });
+```
+
+否则会在调用日志的时候弹出：
 
 ```text
 * WARN: LoggerBase class hasn't setLoggerFunc yet!
