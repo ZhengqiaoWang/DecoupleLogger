@@ -39,3 +39,7 @@ ClassRoom() {
 ```
 
 This way when using it we just need to call `setLoggerFunc` of `ClassRoom` to automatically set the same logging member functions for `tb` and `ch`.
+
+### Support for `text format`
+
+`callLog` can accept `fmt` like `printf` and output the log using variable parameters. Note that you should keep an eye on the log length in your project and modify `LOG_MAX_LENGTH` as necessary to avoid the log being truncated by `snprintf`.
